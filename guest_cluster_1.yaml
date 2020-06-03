@@ -8,10 +8,10 @@ spec:
     version: v1.16                             #resolved kubernetes version
   topology:
     controlPlane:
-      count: 1                                #number of control plane nodes
-      class: best-effort-medium               #vmclass for control plane nodes
-      storageClass: tanzu-k8s-storage         #storageclass for control plane
+      count: 1                                 #number of control plane nodes
+      class: best-effort-medium                #vmclass for control plane nodes
+      storageClass: tanzu-k8s-storage          #storageclass for control plane
     workers:
-      count: 3                                #number of worker nodes
-      class: best-effort-large                #vmclass for worker nodes
-      storageClass: tanzu-k8s-storage         #storageclass for worker nodes
+      count: 3                                 #number of worker nodes
+      class: best-effort-large                 #vmclass for worker nodes
+      storageClass: tanzu-k8s-storage          #storageclass for worker nodes
