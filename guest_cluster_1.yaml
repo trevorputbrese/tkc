@@ -1,0 +1,17 @@
+apiVersion: run.tanzu.vmware.com/v1alpha1      #TKG API endpoint
+kind: TanzuKubernetesCluster                   #required parameter
+metadata:
+  name: shared-svcs-cluster                    #cluster name, user defined
+  namespace: shared-svcs-ns                    #supervisor namespace
+spec:
+  distribution:
+    version: v1.16                             #resolved kubernetes version
+  topology:
+    controlPlane:
+      count: 1                                 #number of control plane nodes
+      class: best-effort-medium                #vmclass for control plane nodes
+      storageClass: tanzu-k8s-storage          #storageclass for control plane
+    workers:
+      count: 3                                 #number of worker nodes
+      class: best-effort-large                 #vmclass for worker nodes
+      storageClass: tanzu-k8s-storage          #storageclass for worker nodes
