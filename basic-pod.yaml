@@ -6,4 +6,3 @@ spec:
   containers:
   - name: busybox
     image: core.harbor.trvcloud.com/demo/busybox:latest
-    command: ["shell"]
