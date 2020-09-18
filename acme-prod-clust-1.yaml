@@ -12,6 +12,6 @@ spec:
       class: best-effort-medium                 #vmclass for control plane nodes
       storageClass: tanzu-flash-storage  #storageclass for control plane
     workers:
-      count: 1                                 #number of worker nodes
+      count: 2                                 #number of worker nodes
       class: best-effort-large                #vmclass for worker node
       storageClass: tanzu-flash-storage        #storageclass for worker nodes
