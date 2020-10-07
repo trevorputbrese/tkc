@@ -1,11 +1,11 @@
 apiVersion: run.tanzu.vmware.com/v1alpha1      #TKG API endpoint
 kind: TanzuKubernetesCluster                   #required parameter
 metadata:
-  name: shared-svcs-cluster                    #cluster name, user defined
-  namespace: shared-svcs-ns                    #supervisor namespace
+  name: acme-dev-team                    #cluster name, user defined
+  namespace: acme-dev-k8s-1                    #supervisor namespace
 spec:
   distribution:
-    version: v1.16                             #resolved kubernetes version
+    version: v1.17.11                             #resolved kubernetes version
   topology:
     controlPlane:
       count: 1                                 #number of control plane nodes
