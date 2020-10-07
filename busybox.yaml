@@ -12,4 +12,5 @@ spec:
       - "3600"
     imagePullPolicy: IfNotPresent
     name: busybox
-  restartPolicy: Always
+  imagePullSecrets:
+  - name: docker-cred
