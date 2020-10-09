@@ -3,9 +3,6 @@ read gcnamespace
 
 echo "Enter the name of the target workload cluster:"
 read gcname
-
-gcname=devops-cluster-1
-gcnamespace=devops
 workdir="/tmp/$gcnamespace-$gcname"
 mkdir -p $workdir
 sshkey=$workdir/gc-sshkey # path for gc private key
