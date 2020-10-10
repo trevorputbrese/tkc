@@ -1,8 +1,8 @@
-apiVersion: run.tanzu.vmware.com/v1alpha1    
-kind: TanzuKubernetesCluster                 
+apiVersion: run.tanzu.vmware.com/v1alpha1      #TKG API endpoint
+kind: TanzuKubernetesCluster                   #required parameter
 metadata:
-  name: k8s-prod-clust-2                                
-  namespace: acme-app-team                     
+  name: k8s-prod-clust-2                         #cluster name, user defined
+  namespace: acme-app-team                       #supervisor namespace                   
 spec:
   distribution:
     version: 1.18  #Resolves to the latest v1.17 image (v1.17.8+vmware.1-tkg.1.5417466)
