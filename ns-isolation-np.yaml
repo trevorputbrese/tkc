@@ -1,0 +1,19 @@
+# This network policy allows all pods in a namespace
+# to talk to other pods in the same namespace.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-same-namespace
+  namespace: backend
+spec:
+  podSelector: {}
+  ingress:
+    - from:
+      - namespaceSelector:
+          matchLabels:
+            name: backend
+  egress:
+    - to:
+      - namespaceSelector:
+          matchLabels:
+            name: backend
