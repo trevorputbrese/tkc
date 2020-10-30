@@ -12,7 +12,7 @@ spec:
       class: best-effort-medium                 #vmclass for control plane nodes
       storageClass: tanzu-disk-storage         #storageclass for control plane
     workers:
-      count: 1                                 #number of worker nodes
+      count: 2                                 #number of worker nodes
       class: best-effort-large                 #vmclass for worker nodes
       storageClass: tanzu-disk-storage         #storageclass for worker nodes   
   settings:
