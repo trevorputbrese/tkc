@@ -1,7 +1,7 @@
 apiVersion: run.tanzu.vmware.com/v1alpha1    
 kind: TanzuKubernetesCluster                 
 metadata:
-  name: cbp-demo-cluster-1                              
+  name: cbp-demo-cluster-2                              
   namespace: cbp-dev-team                   
 spec:
   distribution:
@@ -12,7 +12,7 @@ spec:
       class: best-effort-medium                 #vmclass for control plane nodes
       storageClass: tanzu-disk-storage         #storageclass for control plane
     workers:
-      count: 2                                 #number of worker nodes
+      count: 1                                 #number of worker nodes
       class: best-effort-large                 #vmclass for worker nodes
       storageClass: tanzu-disk-storage         #storageclass for worker nodes   
   settings:
@@ -20,9 +20,9 @@ spec:
       cni:
         name: antrea 
       services:
-        cidrBlocks: ["198.103.0.0/16"]        #Cannot overlap with Supervisor Cluster
+        cidrBlocks: ["198.104.0.0/16"]        #Cannot overlap with Supervisor Cluster
       pods:
-        cidrBlocks: ["192.4.0.0/16"]           #Cannot overlap with Supervisor Cluster
+        cidrBlocks: ["192.5.0.0/16"]           #Cannot overlap with Supervisor Cluster
     storage:
       classes: ["tanzu-disk-storage", "tanzu-flash-storage"]              #Named PVC storage classes
       defaultClass: tanzu-disk-storage    #Default PVC storage class
