@@ -1,8 +1,8 @@
 apiVersion: run.tanzu.vmware.com/v1alpha1    
 kind: TanzuKubernetesCluster                 
 metadata:
-  name: staging-env-vsphere-k8s-1                           
-  namespace: staging-environment               
+  name: prod-env-vsphere-k8s-1                          
+  namespace: prod-environment               
 spec:
   distribution:
     version: v1.18  #Resolves to the latest v1.17 image (v1.17.8+vmware.1-tkg.1.5417466)
@@ -12,7 +12,7 @@ spec:
       class: best-effort-medium                 #vmclass for control plane nodes
       storageClass: tanzu-disk-storage         #storageclass for control plane
     workers:
-      count: 1                                 #number of worker nodes
+      count: 2                                #number of worker nodes
       class: best-effort-large                 #vmclass for worker nodes
       storageClass: tanzu-disk-storage         #storageclass for worker nodes   
   settings:
@@ -20,9 +20,9 @@ spec:
       cni:
         name: antrea 
       services:
-        cidrBlocks: ["198.108.0.0/16"]        #Cannot overlap with Supervisor Cluster
+        cidrBlocks: ["198.109.0.0/16"]        #Cannot overlap with Supervisor Cluster
       pods:
-        cidrBlocks: ["192.8.0.0/16"]           #Cannot overlap with Supervisor Cluster
+        cidrBlocks: ["192.9.0.0/16"]           #Cannot overlap with Supervisor Cluster
     storage:
-      classes: ["tanzu-disk-storage", "tanzu-flash-storage"]              #Named PVC storage classes
-      defaultClass: tanzu-disk-storage    #Default PVC storage class
+      classes: ["standard", "tanzu-disk-storage", "tanzu-flash-storage"]              #Named PVC storage classes
+      defaultClass: standard    #Default PVC storage class
