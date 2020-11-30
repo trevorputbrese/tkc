@@ -1,7 +1,12 @@
-secret:
-- name: mysql-pass
-  literals:
-  - password=VMware1!
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysql-pass
+type: kubernetes.io/basic-auth
+stringData:
+  username: admin
+  password: VMware1!
 ---
 apiVersion: v1
 kind: Service
