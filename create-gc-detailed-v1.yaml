@@ -1,28 +1,28 @@
 apiVersion: run.tanzu.vmware.com/v1alpha1    
 kind: TanzuKubernetesCluster                 
 metadata:
-  name: lm-dev-vsphere-k8s-1              
-  namespace: lm-dev-team         
+  name: shared-svcs-k8s-2             
+  namespace: shared-svcs-ns      
 spec:
   distribution:
-    version: v1.18  #Resolves to the latest v1.17 image (v1.17.8+vmware.1-tkg.1.5417466)
+    version: v1.18  #Resolves to the latest v1.18 image (v1.17.8+vmware.1-tkg.1.5417466)
   topology:
     controlPlane:
       count: 1                                 #number of control plane nodes
       class: best-effort-medium                 #vmclass for control plane nodes
       storageClass: tanzu-disk-storage         #storageclass for control plane
     workers:
-      count: 1                                 #number of worker nodes
-      class: best-effort-medium                 #vmclass for worker nodes
+      count: 2                                 #number of worker nodes
+      class: best-effort-large                 #vmclass for worker nodes
       storageClass: tanzu-disk-storage         #storageclass for worker nodes   
   settings:
     network:
       cni:
         name: antrea 
       services:
-        cidrBlocks: ["198.110.0.0/16"]        #Cannot overlap with Supervisor Cluster
+        cidrBlocks: ["198.111.0.0/16"]        #Cannot overlap with Supervisor Cluster
       pods:
-        cidrBlocks: ["192.10.0.0/16"]           #Cannot overlap with Supervisor Cluster
+        cidrBlocks: ["192.11.0.0/16"]           #Cannot overlap with Supervisor Cluster
     storage:
       classes: ["standard", "tanzu-disk-storage", "tanzu-flash-storage"]              #Named PVC storage classes
       defaultClass: standard    #Default PVC storage class
