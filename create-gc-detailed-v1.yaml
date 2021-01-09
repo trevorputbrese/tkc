@@ -1,8 +1,8 @@
 apiVersion: run.tanzu.vmware.com/v1alpha1    
 kind: TanzuKubernetesCluster                 
 metadata:
-  name: shared-svcs-vsphere-k8s-1          
-  namespace: shared-svcs-ns  
+  name: acme-vsphere-k8s-1          
+  namespace: acme-dev-team  
 spec:
   distribution:
     version: v1.18  #Resolves to the latest v1.18 image (v1.17.8+vmware.1-tkg.1.5417466)
@@ -12,7 +12,7 @@ spec:
       class: best-effort-medium                 #vmclass for control plane nodes
       storageClass: tanzu-disk-storage         #storageclass for control plane
     workers:
-      count: 2                                 #number of worker nodes
+      count: 3                                 #number of worker nodes
       class: best-effort-large                 #vmclass for worker nodes
       storageClass: tanzu-disk-storage         #storageclass for worker nodes   
   settings:
