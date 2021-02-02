@@ -25,4 +25,4 @@ spec:
         cidrBlocks: ["192.4.0.0/16"]           #Cannot overlap with Supervisor Cluster
     storage:
       classes: ["standard", "tanzu-disk-storage", "tanzu-flash-storage"]              #Named PVC storage classes
-      defaultClass: standard    #Default PVC storage class
+      defaultClass: vsan-default-storage-policy   #Default PVC storage class
