@@ -1,8 +1,8 @@
 apiVersion: run.tanzu.vmware.com/v1alpha1    
 kind: TanzuKubernetesCluster                 
 metadata:
-  name: acme-vsphere-k8s-3          
-  namespace: acme-dev-team  
+  name: acme-vsphere-k8s-1          
+  namespace: test-dev  
 spec:
   distribution:
     version: v1.18  #Resolves to the latest v1.18 image (v1.17.8+vmware.1-tkg.1.5417466)
