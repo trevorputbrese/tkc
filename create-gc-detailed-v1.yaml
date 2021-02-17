@@ -1,8 +1,8 @@
 apiVersion: run.tanzu.vmware.com/v1alpha1    
 kind: TanzuKubernetesCluster                 
 metadata:
-  name: tkgs-vsphere-shared-svcs-k8s-1        
-  namespace: shared-svcs-ns  
+  name: test-cluster-1        
+  namespace: test-namespace
 spec:
   distribution:
     version: v1.18  #Resolves to the latest v1.18 image (v1.17.8+vmware.1-tkg.1.5417466)
@@ -10,11 +10,11 @@ spec:
     controlPlane:
       count: 1                                 #number of control plane nodes
       class: guaranteed-medium                 #vmclass for control plane nodes
-      storageClass: tanzu-disk-storage         #storageclass for control plane
+      storageClass: vsan-default-storage-policy         #storageclass for control plane
     workers:
       count: 2                                 #number of worker nodes
       class: guaranteed-large                 #vmclass for worker nodes
-      storageClass: tanzu-disk-storage         #storageclass for worker nodes   
+      storageClass: vsan-default-storage-policy         #storageclass for worker nodes   
   settings:
     network:
       cni:
@@ -24,5 +24,5 @@ spec:
       pods:
         cidrBlocks: ["192.1.0.0/16"]           #Cannot overlap with Supervisor Cluster
     storage:
-      classes: ["tanzu-disk-storage", "tanzu-flash-storage"]              #Named PVC storage classes
-      defaultClass: standard   #Default PVC storage class
+      classes: ["vsan-default-storage-policy"]              #Named PVC storage classes
+      defaultClass: vsan-default-storage-policy   #Default PVC storage class
