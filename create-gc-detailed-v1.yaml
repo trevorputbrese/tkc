@@ -10,11 +10,11 @@ spec:
     controlPlane:
       count: 1                                 #number of control plane nodes
       class: guaranteed-medium                 #vmclass for control plane nodes
-      storageClass: vsan-default-storage-policy         #storageclass for control plane
+      storageClass: standard         #storageclass for control plane
     workers:
       count: 2                                 #number of worker nodes
       class: guaranteed-large                 #vmclass for worker nodes
-      storageClass: vsan-default-storage-policy         #storageclass for worker nodes   
+      storageClass: standard         #storageclass for worker nodes   
   settings:
     network:
       cni:
