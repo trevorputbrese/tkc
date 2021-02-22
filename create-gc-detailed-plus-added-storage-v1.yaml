@@ -1,0 +1,38 @@
+apiVersion: run.tanzu.vmware.com/v1alpha1    
+kind: TanzuKubernetesCluster                 
+metadata:
+  name: tkgs-throwaway-k8s-1      
+  namespace: tkgs-shared-svcs-ns
+spec:
+  distribution:
+    version: v1.18  #Resolves to the latest v1.18 image (v1.17.8+vmware.1-tkg.1.5417466)
+  topology:
+    controlPlane:
+      count: 1                                 #number of control plane nodes
+      class: guaranteed-medium                 #vmclass for control plane nodes
+      storageClass: standard         #storageclass for control plane
+      volumes:
+        - name: etcd
+          mountPath: /var/lib/etcd
+          capacity:
+            storage: 10Gi 
+    workers:
+      count: 2                                 #number of worker nodes
+      class: guaranteed-medium                 #vmclass for worker nodes
+      storageClass: standard         #storageclass for worker nodes
+      volumes:
+        - name: containerd
+          mountPath: /var/lib/containerd
+          capacity:
+            storage: 30Gi       
+  settings:
+    network:
+      cni:
+        name: antrea 
+      services:
+        cidrBlocks: ["198.101.0.0/16"]        #Cannot overlap with Supervisor Cluster
+      pods:
+        cidrBlocks: ["192.1.0.0/16"]           #Cannot overlap with Supervisor Cluster
+    storage:
+      classes: ["tanzu-flash-storage","tanzu-disk-storage"]              #Named PVC storage classes
+      defaultClass: standard   #Default PVC storage class
