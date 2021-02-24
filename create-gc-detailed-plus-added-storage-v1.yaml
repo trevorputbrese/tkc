@@ -15,7 +15,7 @@ spec:
         - name: etcd
           mountPath: /var/lib/etcd
           capacity:
-            storage: 10Gi 
+            storage: 30Gi 
     workers:
       count: 2                                 #number of worker nodes
       class: guaranteed-medium                 #vmclass for worker nodes
@@ -24,7 +24,7 @@ spec:
         - name: containerd
           mountPath: /var/lib/containerd
           capacity:
-            storage: 30Gi       
+            storage: 300Gi       
   settings:
     network:
       cni:
