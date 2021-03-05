@@ -2,7 +2,7 @@ apiVersion: run.tanzu.vmware.com/v1alpha1       #TKG API endpoint
 kind: TanzuKubernetesCluster                    #required parameter
 metadata:
   name: test-throwaway                    #cluster name, user defined
-  namespace: tgks-shared-svcs-ns                      #supervisor namespace
+  namespace: tkgs-shared-svcs-ns                      #supervisor namespace
 spec:
   distribution:
     version: v1.17                              #Resolves to the latest v1.17 image (v1.17.8+vmware.1-tkg.1.5417466)
