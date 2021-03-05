@@ -5,7 +5,7 @@ metadata:
   namespace: tkgs-shared-svcs-ns                      #supervisor namespace
 spec:
   distribution:
-    version: v1.17                              #Resolves to the latest v1.17 image (v1.17.8+vmware.1-tkg.1.5417466)
+    version: v1.18                              #Resolves to the latest v1.17 image (v1.17.8+vmware.1-tkg.1.5417466)
   topology:
     controlPlane:
       count: 1                                  #number of control plane nodes
