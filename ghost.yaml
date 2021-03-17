@@ -12,10 +12,6 @@ spec:
   selector:
     name: blog
   type: LoadBalancer
-status:
-  loadBalancer:
-    ingress:
-    - ip: 10.20.20.10
 ---
 apiVersion: apps/v1
 kind: Deployment
