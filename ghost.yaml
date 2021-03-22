@@ -12,6 +12,7 @@ spec:
   selector:
     name: blog
   type: LoadBalancer
+  loadBalancerIP:  10.20.20.7
 ---
 apiVersion: apps/v1
 kind: Deployment
