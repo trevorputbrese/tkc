@@ -1,8 +1,8 @@
 apiVersion: run.tanzu.vmware.com/v1alpha1    
 kind: TanzuKubernetesCluster                 
 metadata:
-  name: 1st-dev-cluster      
-  namespace: paulos-dev-team
+  name: cuny-workload-cluster     
+  namespace: cuny-dev-team
 spec:
   distribution:
     version: v1.19  #Resolves to the latest v1.18 image (v1.17.8+vmware.1-tkg.1.5417466)
@@ -24,4 +24,4 @@ spec:
       pods:
         cidrBlocks: ["192.1.0.0/16"]           #Cannot overlap with Supervisor Cluster
     storage:
-      defaultClass: storage   #Default PVC storage class
+      defaultClass: standard   #Default PVC storage class
