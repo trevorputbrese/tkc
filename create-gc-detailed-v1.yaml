@@ -9,11 +9,11 @@ spec:
   topology:
     controlPlane:
       count: 1                                 #number of control plane nodes
-      class: guaranteed-medium                 #vmclass for control plane nodes
+      class: best-effort-medium                 #vmclass for control plane nodes
       storageClass: standard         #storageclass for control plane
     workers:
       count: 1                                 #number of worker nodes
-      class: guaranteed-medium                 #vmclass for worker nodes
+      class: best-effort-medium                 #vmclass for worker nodes
       storageClass: standard         #storageclass for worker nodes   
   settings:
     network:
