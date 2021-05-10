@@ -31,7 +31,7 @@ spec:
     spec:
       containers:
       - name: blog
-        image: ghost:latest
+        image: public.ecr.aws/bitnami/ghost:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 2368
