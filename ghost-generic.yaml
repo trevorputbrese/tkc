@@ -1,0 +1,56 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: blog
+  name: blog
+spec:
+  ports:
+    - port: 80
+      targetPort: 2368
+  selector:
+    name: blog
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blog
+  labels:
+    name: blog
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: blog
+  template:
+    metadata:
+      labels:
+        name: blog
+    spec:
+      containers:
+      - name: blog
+        image: [registry-ip-address]/[project-name]/[image-name]:[tag] eg:  harbor.trvcloud.com/test-app/ghost:test
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 2368
+        volumeMounts:
+        - mountPath: /var/lib/ghost/content
+          name: content
+      volumes:
+      - name: content
+        persistentVolumeClaim:
+          claimName: blog-content
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: blog-content
+spec:
+  storageClassName: [insert storage class name]
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
