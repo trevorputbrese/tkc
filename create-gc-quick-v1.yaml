@@ -12,6 +12,6 @@ spec:
       class: guaranteed-small                 #vmclass for control plane nodes
       storageClass: standard                    #storageclass for control plane
     workers:
-      count: 1                             #number of worker nodes
+      count: 10                             #number of worker nodes
       class: guaranteed-small                  #vmclass for worker nodes
       storageClass: standard                    #storageclass for worker nodes
