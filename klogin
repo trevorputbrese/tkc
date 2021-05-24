@@ -16,7 +16,7 @@ then
   read SUPNS1
   echo Please enter your username:
   read USER2
-  kubectl vsphere login --vsphere-username $USER2 --server=https://60.60.60.10 --tanzu-kubernetes-cluster-namespace $SUPNS1 --tanzu-kubernetes-cluster-name $WKLD --insec>
+  kubectl vsphere login --vsphere-username $USER2 --server=https://60.60.60.10 --tanzu-kubernetes-cluster-namespace $SUPNS1 --tanzu-kubernetes-cluster-name $WKLD --insecure-skip-tls-verify
 else
   echo "Invalid Option.  Please try logging in again."
 fi
