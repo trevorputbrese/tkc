@@ -31,3 +31,49 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io -y
 sudo docker run hello-world
 sudo groupadd docker
 sudo usermod -aG docker $USER
+#
+#
+#install klogin
+cd ~
+mkdir temp
+cd temp
+cat <<EOF > klogin
+  
+#!/bin/bash
+echo Enter "S" to login to the Supervisor cluster or "W" to login to a workload cluster:
+read CLUSTERCHOICE
+if [ $CLUSTERCHOICE == "S" ]
+then
+  echo Please enter the supervisor namespace to which you are trying to login:
+  read SUPNS
+  echo Please enter your username:
+  read USER1
+  kubectl vsphere login --vsphere-username $USER1 --server=https://60.60.60.10 --tanzu-kubernetes-cluster-namespace $SUPNS --insecure-skip-tls-verify
+elif [ $CLUSTERCHOICE == "W" ]
+then
+  echo Please enter the name of the workload cluster to which you are trying to login:
+  read WKLD
+  echo Please enter the name of the supervisor namespace in which the workload cluster resides:
+  read SUPNS1
+  echo Please enter your username:
+  read USER2
+  kubectl vsphere login --vsphere-username $USER2 --server=https://60.60.60.10 --tanzu-kubernetes-cluster-namespace $SUPNS1 --tanzu-kubernetes-cluster-name $WKLD --insecure-skip-tls-verify
+else
+  echo "Invalid Option.  Please try logging in again."
+fi
+EOF
+chmod +x klogin
+sudo cp ./klogin /usr/bin/klogin
+#
+#
+#install kubectl and kubect vsphere
+# wget xxxxx --no-check-certificate
+# unzip vsphere-plugin.zip
+# cd bin 
+#
+#
+#install krew
+#install kubectl auto-completekubectl completion bash |sudo tee /etc/bash_completion.d/kubectl
+#
+
+
