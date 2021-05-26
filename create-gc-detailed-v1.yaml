@@ -1,8 +1,8 @@
 apiVersion: run.tanzu.vmware.com/v1alpha1    
 kind: TanzuKubernetesCluster                 
 metadata:
-  name: cuny-workload-cluster     
-  namespace: cuny-dev-team
+  name: tkgs-shared-svcs-k8s-1
+  namespace: devstack-shared-svcs-ns
 spec:
   distribution:
     version: v1.19  #Resolves to the latest v1.18 image (v1.17.8+vmware.1-tkg.1.5417466)
@@ -12,7 +12,7 @@ spec:
       class: best-effort-medium                 #vmclass for control plane nodes
       storageClass: standard         #storageclass for control plane
     workers:
-      count: 1                                 #number of worker nodes
+      count: 2                                 #number of worker nodes
       class: best-effort-medium                 #vmclass for worker nodes
       storageClass: standard         #storageclass for worker nodes   
   settings:
