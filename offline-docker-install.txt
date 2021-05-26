@@ -1,0 +1,91 @@
+Requires an Ubuntu VM with the following software installed:
+1.  docker
+2.  docker-compose
+3.  open-ssl
+
+#Download the 
+
+
+# GENERATE A CERTIFICATE AUTHORITY CERTIFICATE:
+
+# generate a CA certificate private key
+openssl genrsa -out ca.key 4096
+# output should be file called "ca.key"
+
+# generate the CA certificate
+openssl req -x509 -new -nodes -sha512 -days 3650 \
+ -subj "/C=CN/ST=Virginia/L=Virginia/O=USSS/OU=Personal/CN=harbor.trvcloud.com" \
+ -key ca.key \
+ -out ca.crt
+ #output shoudl be file called "ca.crt"
+ 
+ #####
+ 
+# GENERATE A SERVER CERTIFICATE:
+ 
+# generate a private key
+openssl genrsa -out harbor.trvcloud.com.key 4096
+# output should be filed called "harbor.trvcloud.com.key"
+ 
+# generate a CSR
+openssl req -sha512 -new \
+    -subj "/C=CN/ST=Virginia/L=Virginia/O=USSS/OU=Personal/CN=harbor.trvcloud.com" \
+    -key harbor.trvcloud.com.key \
+    -out harbor.trvcloud.com.csr
+# output should be a file named "harbor.trvcloud.com.csr"
+  
+# generate an x509 v3 extension file (needed to require with SAN and v3 extension reqs)
+cat > v3.ext <<-EOF
+authorityKeyIdentifier=keyid,issuer
+basicConstraints=CA:FALSE
+keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+extendedKeyUsage = serverAuth
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1=harbor.trvcloud.com
+DNS.2=trvcloud.com
+DNS.3=harbor
+DNS.4=10.10.10.97
+EOF
+# output should be filed called "v3 ext"
+
+#use v3.ext file to generate a server cert for harbor host
+openssl x509 -req -sha512 -days 3650 \
+    -extfile v3.ext \
+    -CA ca.crt -CAkey ca.key -CAcreateserial \
+    -in harbor.trvcloud.com.csr \
+    -out harbor.trvcloud.com.crt
+# output should be file named harbor.trvcloud.com.crt
+
+
+ #####
+ 
+# PROVIDE THE CERTIFICATES TO YOUR HARBOR HOST AND DOCKER
+
+# create directory called /data/cert
+# (you will later point to this directory in the harbor.yml file during the install)
+sudo mkdir -p /data/cert/
+
+# copy the server certs to this directly AND if this is an ubuntu host
+# ALSO, if this is an ubuntu host, copy the certs to /etc/ssl/certs/
+sudo cp harbor.trvcloud.com.crt /data/cert/
+sudo cp harbor.trvcloud.com.key /data/cert/
+sudo cp harbor.trvcloud.com.crt /etc/ssl/certs/
+sudo cp harbor.trvcloud.com.key /etc/ssl/certs/
+
+# convert harbor.trvcloud.com.crt for harbor.trvcloud.com.cert for docker
+openssl x509 -inform PEM -in harbor.trvcloud.com.crt -out harbor.trvcloud.com.cert
+# output should be file called harbor.trvcloud.com.cert
+
+# Create a docker certificates folder:
+sudo mkdir -p  /etc/docker/certs.d/harbor.trvcloud.com/
+
+#copy server cert key and CA files into the Docker certs folder:
+sudo cp harbor.trvcloud.com.cert /etc/docker/certs.d/harbor.trvcloud.com/
+sudo cp harbor.trvcloud.com.key /etc/docker/certs.d/harbor.trvcloud.com/
+sudo cp ca.crt /etc/docker/certs.d/harbor.trvcloud.com/
+
+#restart docker and update certs:
+sudo systemctl restart docker
+sudo update-ca-certificates
