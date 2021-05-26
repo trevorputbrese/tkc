@@ -74,17 +74,17 @@ openssl x509 -req -sha512 -days 3650 \
 # PROVIDE THE CERTIFICATES TO YOUR HARBOR HOST AND DOCKER
 
 # create directory called /data/cert
-# (you will later point to this directory in the harbor.yml file during the install)
+# (you will later point to this directory in the harbor.yml file when you prep the install)
 sudo mkdir -p /data/cert/
 
-# copy the server certs to this directly AND if this is an ubuntu host
+# copy the server certificates to the directory above
 # ALSO, if this is an ubuntu host, copy the certs to /etc/ssl/certs/
 sudo cp harbor.trvcloud.com.crt /data/cert/
 sudo cp harbor.trvcloud.com.key /data/cert/
 sudo cp harbor.trvcloud.com.crt /etc/ssl/certs/
 sudo cp harbor.trvcloud.com.key /etc/ssl/certs/
 
-# convert harbor.trvcloud.com.crt for harbor.trvcloud.com.cert for docker
+# convert harbor.trvcloud.com.crt TO harbor.trvcloud.com.cert for docker (docker needs .cert filename)
 openssl x509 -inform PEM -in harbor.trvcloud.com.crt -out harbor.trvcloud.com.cert
 # output should be file called harbor.trvcloud.com.cert
 
@@ -96,7 +96,7 @@ sudo cp harbor.trvcloud.com.cert /etc/docker/certs.d/harbor.trvcloud.com/
 sudo cp harbor.trvcloud.com.key /etc/docker/certs.d/harbor.trvcloud.com/
 sudo cp ca.crt /etc/docker/certs.d/harbor.trvcloud.com/
 
-#restart docker and update certs:
+#restart docker and update the certificate store on the Ubuntu VM:
 sudo systemctl restart docker
 sudo update-ca-certificates
 
@@ -129,5 +129,6 @@ nano harbor.yml
 sudo ./install.sh
 
 #if the installer is succesfull connect to harbor in your browser
+#also try logging into Harbor with the local docker instance
 
 
