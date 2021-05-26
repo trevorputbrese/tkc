@@ -1,9 +1,17 @@
 Requires an Ubuntu VM with the following software installed:
 1.  docker
 2.  docker-compose
-3.  open-ssl
+3.  openssl
 
-#Download the 
+#Download the Harbor offline installer from the following link (installer includes embedded container images):
+# https://github.com/goharbor/harbor/releases
+wget https://github.com/goharbor/harbor/releases/download/v2.2.2/harbor-offline-installer-v2.2.2.tgz
+
+#unzip installer
+tar zxvf arbor-offline-installer-v2.2.2.tgz
+
+#create a directory for harbor keys:
+mkdir ~/harbor-keys && cd ~/harbor-keys
 
 
 # GENERATE A CERTIFICATE AUTHORITY CERTIFICATE:
@@ -34,7 +42,10 @@ openssl req -sha512 -new \
     -out harbor.trvcloud.com.csr
 # output should be a file named "harbor.trvcloud.com.csr"
   
-# generate an x509 v3 extension file (needed to require with SAN and v3 extension reqs)
+# generate an x509 v3 extension file (needed to comply with SAN and v3 extension reqs)
+# in the "DNS.x=" field below include your FQDN AND the IP address of the host on which
+# harbor will be running.  Basically the DNS.x field is what gets populated in the SAN field of the cert
+
 cat > v3.ext <<-EOF
 authorityKeyIdentifier=keyid,issuer
 basicConstraints=CA:FALSE
@@ -48,7 +59,7 @@ DNS.2=trvcloud.com
 DNS.3=harbor
 DNS.4=10.10.10.97
 EOF
-# output should be filed called "v3 ext"
+# output should be filed called "v3.ext"
 
 #use v3.ext file to generate a server cert for harbor host
 openssl x509 -req -sha512 -days 3650 \
@@ -57,7 +68,6 @@ openssl x509 -req -sha512 -days 3650 \
     -in harbor.trvcloud.com.csr \
     -out harbor.trvcloud.com.crt
 # output should be file named harbor.trvcloud.com.crt
-
 
  #####
  
@@ -89,3 +99,35 @@ sudo cp ca.crt /etc/docker/certs.d/harbor.trvcloud.com/
 #restart docker and update certs:
 sudo systemctl restart docker
 sudo update-ca-certificates
+
+#####
+ 
+# CONFIGURE HARBOR YAML FILE
+
+# navigate the directory to where you untzipped the harbr install, in my case:
+cd ~/Downloads/harbor/
+
+#make a copy of the harbor.yml.tmpl file:
+cp harbor.yml.tmp harbor.yml
+
+#open harbor.yml in a text editor
+nano harbor.yml
+
+#edit the hostname value to add your hostname:
+#eg:  hostname: harbor.trvcloud.com
+
+#edit the https field to add the location of your certificate and private key -- eg:
+# https related config
+# https:
+  # # https port for harbor, default is 443
+  # port: 443
+  # # The path of cert and key files for nginx
+  # certificate: /data/cert/trvcloud.com.crt
+  # private_key: /data/cert/trvcloud.com.key
+
+#run the installer:
+sudo ./install.sh
+
+#if the installer is succesfull connect to harbor in your browser
+
+
