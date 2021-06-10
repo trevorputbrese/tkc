@@ -1,19 +1,19 @@
 apiVersion: run.tanzu.vmware.com/v1alpha1    
 kind: TanzuKubernetesCluster                 
 metadata:
-  name: tkgs-shared-svcs-k8s-1
-  namespace: devstack-shared-svcs-ns
+  name: tkgs2-acme-dev-k8s-1
+  namespace: tkgs2-spring-dev-team-ns
 spec:
   distribution:
     version: v1.19  #Resolves to the latest v1.18 image (v1.17.8+vmware.1-tkg.1.5417466)
   topology:
     controlPlane:
       count: 1                                 #number of control plane nodes
-      class: best-effort-medium                 #vmclass for control plane nodes
+      class: best-effort-small                 #vmclass for control plane nodes
       storageClass: standard         #storageclass for control plane
     workers:
-      count: 2                                 #number of worker nodes
-      class: best-effort-medium                 #vmclass for worker nodes
+      count: 1                                 #number of worker nodes
+      class: best-effort-small                 #vmclass for worker nodes
       storageClass: standard         #storageclass for worker nodes   
   settings:
     network:
