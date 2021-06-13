@@ -7,7 +7,7 @@ then
   read SUPNS
   echo Please enter your username:
   read USER1
-  kubectl vsphere login --vsphere-username $USER1 --server=https://60.60.60.10 --tanzu-kubernetes-cluster-namespace $SUPNS --insecure-skip-tls-verify
+  kubectl vsphere login --vsphere-username $USER1 --server=https://10.10.50.10 --tanzu-kubernetes-cluster-namespace $SUPNS --insecure-skip-tls-verify
 elif [ $CLUSTERCHOICE == "W" ]
 then
   echo Please enter the name of the workload cluster to which you are trying to login:
@@ -16,7 +16,7 @@ then
   read SUPNS1
   echo Please enter your username:
   read USER2
-  kubectl vsphere login --vsphere-username $USER2 --server=https://60.60.60.10 --tanzu-kubernetes-cluster-namespace $SUPNS1 --tanzu-kubernetes-cluster-name $WKLD --insecure-skip-tls-verify
+  kubectl vsphere login --vsphere-username $USER2 --server=https://10.10.50.10 --tanzu-kubernetes-cluster-namespace $SUPNS1 --tanzu-kubernetes-cluster-name $WKLD --insecure-skip-tls-verify
 else
   echo "Invalid Option.  Please try logging in again."
 fi
