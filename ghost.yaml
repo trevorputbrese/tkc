@@ -31,7 +31,7 @@ spec:
     spec:
       containers:
       - name: blog
-        image: harbor.e2e02.trvcloud.com/ghost/ghost:v1
+        image: harbor.e2e.ashburncloud.net/library/ghost:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 2368
