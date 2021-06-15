@@ -1,0 +1,44 @@
+#install helm:  https://helm.sh/docs/intro/quickstart/
+
+#add bitnami helm repo 
+helm repo add bitnami https://charts.bitnami.com/bitnami
+
+#you can list all applications from the helm repo with:
+helm search repo bitnami
+
+#you can install a helm chart directly from the repo via "helm install my-release bitnami/<chart>"
+#I generally prefer to download the chart locally and install from my local machine via "helm pull repo/chartname":
+helm pull bitnami/harbor
+
+#uznip harbor helm chart:
+tar zxvf harbor-10.0.5.tgz
+cd harbor
+
+#edit the values.yaml file. 
+#you will need to customize the values for your environment
+vim values.yaml
+
+#the following values need to be uncommented and/or edited:
+
+
+#line 390:
+commonName: 'core.harbor1.trvcloud.com'
+
+#lines 434 - 436
+  hosts:
+    core: core.harbor1.trvcloud.com
+    notary: notary.harbor1.trvcloud.com
+
+#line 466
+externalURL: https://harbor1.trvcloud.com
+
+#line 639
+harborAdminPassword: Harbor12345
+
+
+##INSTALL harbor
+
+#Make sure you are logged in/authenticated to your Kubernetes cluster
+#eg "kubectl get nodes" should display the nodes of the cluster in which you want to install harbor
+#run the helm install command (command below must be run from within the harbor repo folder)
+helm install harbor1 
