@@ -2,7 +2,7 @@ apiVersion: run.tanzu.vmware.com/v1alpha1
 kind: TanzuKubernetesCluster                 
 metadata:
   name: tkgs2-spring-dev-k8s-2
-  namespace: tkgs2-spring-dev-team-ns
+  namespace: test-ns
 spec:
   distribution:
     version: v1.19  #Resolves to the latest v1.18 image (v1.17.8+vmware.1-tkg.1.5417466)
