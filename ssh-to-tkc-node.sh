@@ -1,3 +1,4 @@
+#script to ssh into a TKC node 
 echo "Enter the supervisor cluster namespace in which the TKC cluster was built:"
 read gcnamespace
 
