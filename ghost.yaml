@@ -48,7 +48,7 @@ apiVersion: v1
 metadata:
   name: blog-content
 spec:
-  storageClassName: standard
+  storageClassName: tanzu-storage-policy
   accessModes:
     - ReadWriteOnce
   resources:
