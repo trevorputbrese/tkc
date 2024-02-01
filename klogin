@@ -1,4 +1,5 @@
 #!/bin/bash
+#
 echo Enter "S" to login to the Supervisor cluster or "W" to login to a workload cluster:
 read CLUSTERCHOICE
 if [ $CLUSTERCHOICE == "S" ]
@@ -20,3 +21,4 @@ then
 else
   echo "Invalid Option.  Please try logging in again."
 fi
+
