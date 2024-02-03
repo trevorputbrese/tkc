@@ -129,6 +129,6 @@ nano harbor.yml
 sudo ./install.sh
 
 #if the installer is succesfull connect to harbor in your browser
-#also try logging into Harbor with the local docker instance
+#also try logging into Harbor with the local docker instance.
 
 
