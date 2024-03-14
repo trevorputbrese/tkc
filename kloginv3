@@ -6,6 +6,7 @@ login_supervisor() {
     echo "Supervisor namespace is required."
     exit 1
   fi
+  echo kubectl vsphere login --vsphere-username "$USER" --server=https://10.10.50.11 --tanzu-kubernetes-cluster-namespace "$SUPNS" --insecure-skip-tls-verify
   kubectl vsphere login --vsphere-username "$USER" --server=https://10.10.50.11 --tanzu-kubernetes-cluster-namespace "$SUPNS" --insecure-skip-tls-verify
 }
 
@@ -20,6 +21,7 @@ login_workload() {
     echo "Workload cluster name is required."
     exit 1
   fi
+  echo kubectl vsphere login --vsphere-username "$USER" --server=https://10.10.50.11 --tanzu-kubernetes-cluster-namespace "$SUPNS1" --tanzu-kubernetes-cluster-name "$WKLD" --insecure-skip-tls-verify
   kubectl vsphere login --vsphere-username "$USER" --server=https://10.10.50.11 --tanzu-kubernetes-cluster-namespace "$SUPNS1" --tanzu-kubernetes-cluster-name "$WKLD" --insecure-skip-tls-verify
 }
 
