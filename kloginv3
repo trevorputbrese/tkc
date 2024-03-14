@@ -1,0 +1,48 @@
+#!/bin/bash
+
+login_supervisor() {
+  read -rp "Please enter the supervisor namespace to which you are trying to login: " SUPNS
+  if [ -z "$SUPNS" ]; then
+    echo "Supervisor namespace is required."
+    exit 1
+  fi
+  kubectl vsphere login --vsphere-username "$USER" --server=https://10.10.50.11 --tanzu-kubernetes-cluster-namespace "$SUPNS" --insecure-skip-tls-verify
+}
+
+login_workload() {
+  read -rp "Please enter the name of the supervisor namespace in which the workload cluster resides: " SUPNS1
+  if [ -z "$SUPNS1" ]; then
+    echo "Supervisor namespace is required."
+    exit 1
+  fi
+  read -rp "Please enter the name of the workload cluster to which you are trying to login: " WKLD
+  if [ -z "$WKLD" ]; then
+    echo "Workload cluster name is required."
+    exit 1
+  fi
+  kubectl vsphere login --vsphere-username "$USER" --server=https://10.10.50.11 --tanzu-kubernetes-cluster-namespace "$SUPNS1" --tanzu-kubernetes-cluster-name "$WKLD" --insecure-skip-tls-verify
+}
+
+echo "Enter 'S' to login to the Supervisor cluster or 'W' to login to a workload cluster:"
+read -r CLUSTERCHOICE
+CLUSTERCHOICE=$(echo "$CLUSTERCHOICE" | tr '[:upper:]' '[:lower:]')
+
+echo "Please enter your username:"
+read -r USER
+if [ -z "$USER" ]; then
+  echo "Username is required."
+  exit 1
+fi
+
+case "$CLUSTERCHOICE" in
+  s)
+    login_supervisor
+    ;;
+  w)
+    login_workload
+    ;;
+  *)
+    echo "Invalid choice. Please enter 'S' for Supervisor cluster or 'W' for Workload cluster."
+    exit 1
+    ;;
+esac
